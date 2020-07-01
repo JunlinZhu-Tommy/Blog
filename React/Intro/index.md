@@ -6,14 +6,15 @@ I beilieve this self-learning tutorial is not step by step stuff to learn how to
 
 ### What React really do for us ? 
 1. https://react.docschina.org/docs/thinking-in-react.html
-2. 
+   
 
 ## File Structure
 
 
 ## What is JSX ? 
 1. https://react.docschina.org/docs/introducing-jsx.html
-2. 
+2. https://react.iamkasong.com/preparation/jsx.html#jsx%E7%AE%80%E4%BB%8B
+
 ## What happen after ReactDom.render() ？
 1. https://mp.weixin.qq.com/s/HzuWwFYOJvVZSbFBUmEAuw
 2. https://mp.weixin.qq.com/s/QFVzVEe8VZr8_Pp5nvtsSQ

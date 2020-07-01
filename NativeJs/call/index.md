@@ -1,20 +1,40 @@
-// 将函数设为对象的属性
-// 执行该函数
-// 删除该函数
+### Definition
 
-// foo.fn = bar;
-// foo.fn();
-// delete foo.fn;
+The call() method calls a function with given this value and arguments provided individually.
 
-// 第一版
-Function.prototype.call2 = function(context) {
-    // 首先要获取调用call的函数，用this可以获取
-    context.fn = this;
-    context.fn();
-    delete context.fn;
+### Example 
+```javascript
+var foo = {
+  value: 1,
 }
 
-// 测试一下
+function bar() {
+  console.log(this.value);
+}
+
+bar.call(foo); // Output: 1
+```
+
+### How the `call` function works and how to implement it ?
+
+The call() allows for a function/method belonging to one object to be assigned and called for a different object and a simple pseudocode could be like this:
+```javascript
+fn.call(obj, args):
+obj.fn = fn;
+obj.fn();
+delete obj.fn
+```
+
+### Implementation V1
+
+```javascript
+Function.prototype.call2 = function(obj) {
+    obj.fn = this;
+    obj.fn();
+    delete obj.fn;
+}
+
+// Test
 var foo = {
     value: 1
 };
@@ -23,7 +43,9 @@ function bar() {
     console.log(this.value);
 }
 
-bar.call2(foo); // 1
+bar.call2(foo); // Output : 1.
+```
+
 
 // 第二版
 Function.prototype.call2 = function(context) {
