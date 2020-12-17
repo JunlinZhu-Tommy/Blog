@@ -23,3 +23,7 @@ generatorObj.next();
 console.log("Outer", generatorObj.throw("foo injected"));
 generatorObj.next();
 ```
+
+### References
+
+- https://juejin.cn/post/6844903527039533064
