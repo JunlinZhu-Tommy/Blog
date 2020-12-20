@@ -59,18 +59,23 @@ Otaku.prototype.sayYourName = function () {
 function objectFactory() {
 
   // Create new empty object
+  // 创建一个新的对象。
   var obj = new Object();
 
   // Get first arguement : var person = objectFactory(Okatu, ...);
+  // 取出第一个参数，就是我们要传入的构造函数。此外因为 shift 会修改原数组，所以 arguments 会被去除第一个参数
   Constructor = [].shift.call(arguments);
 
   // Assign constructor prototype to instance __proto__
+  // 将 obj 的原型指向构造函数，这样 obj 就可以访问到构造函数原型中的属性
   obj.__proto__ = Constructor.prototype;
 
   // Assign properties defined in constructor function to instance
+  // 使用 apply，改变构造函数 this 的指向到新建的对象，这样 obj 就可以访问到构造函数中的属性
   Constructor.apply(obj, arguments);
 
   // Return the instance
+  // 返回obj
   return obj;
 }
 
