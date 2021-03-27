@@ -23,7 +23,11 @@
   - performUnitOfWork
   
 ### performUnitOfWork Recursively (DFS)
-
+```javascript
+while (workInProgress !== null) {
+  performUnitOfWork(workInProgress);
+}
+```
   #### 1. DFS Recursion and `BeginWork`
   - DFS Fiber tree
     - Call beginWork(current, workInProgress, ) on each Fiber node.
@@ -32,7 +36,6 @@
           - placeSingleChild  (newFiber.flags |= Placement)
             - reconcileSingleElement (newFiber.return = returnFiber)
       - return workInProgress.child
-  
     - Backtrack on leaf node.
   
   #### 2. Backtrack with `completeWork` 
