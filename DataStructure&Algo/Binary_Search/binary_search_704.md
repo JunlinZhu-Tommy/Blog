@@ -11,29 +11,32 @@ Given a sorted (in ascending order) integer array nums of n elements and a targe
  * @return {number}
  */
 var search = function(nums, target) {
-    if (!nums || !nums.length === 0) {
+    if (!nums || nums.length === 0) {
         return -1;
     }
 
-    let start = 0, end = nums.length -1;
-    while (start + 1 < end) {
-        const mid = Math.floor(start + (end - start) / 2);
+    let left = 0, right = nums.length - 1;
 
-        if (target === nums[mid]) {
-            start = mid;
-        } else if (target > nums[mid]) {
-            start = mid;
+    while (left + 1 < right) {
+        const mid = Math.floor(left + (right - left) / 2);
+
+        if (nums[mid] > target) {
+            right = mid;
+        } else if (nums[mid] < target) {
+            left = mid;
         } else {
-            end = mid;
+            left = mid;
         }
     }
 
-    if (nums[start] === target) {
-        return start;
-    } else if (nums[end] === target) {
-        return end;
+    if (nums[left] === target) {
+        return left;
+    }
+
+    if (nums[right] === target) {
+        return right;
     }
 
     return -1;
-}
+};
 ```
