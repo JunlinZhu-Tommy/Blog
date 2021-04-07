@@ -39,3 +39,8 @@ use: [
   |- b-loader normal execution
 |- a-loader normal execution
 ```
+
+
+## References && Resources
+- [Webpack-Loader-1](https://github.com/DDFE/DDFE-blog/issues/39)
+- [Webpack-Loader-2](https://github.com/DDFE/DDFE-blog/issues/40)
