@@ -31,6 +31,24 @@ Promise.prototype.myAll = function (arr) {
   });
 };
 
+Promise.prototype.myRace = function (arr) {
+  return new Promise(function (resolve, reject) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] instanceof Promise) {
+        arr[i].then(
+          (val) => resolve(val),
+          (err) => reject(err)
+        );
+      } else {
+        Promise.resolve(arr[i]).then(
+          (val) => resolve(val),
+          (err) => reject(err)
+        );
+      }
+    }
+  });
+};
+
 Promise.prototype
   .myAll([
     new Promise((resolve) => {
