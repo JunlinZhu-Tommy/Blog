@@ -1,34 +1,34 @@
-var simpleEventEmitter = {
-  subscribers: {
-    any: [],
-  },
+// var simpleEventEmitter = {
+//   subscribers: {
+//     any: [],
+//   },
 
-  subscribe: function (type, fn) {
-    if (!this.subscribers[type]) {
-      this.subscribers[type] = [];
-    }
+//   subscribe: function (type, fn) {
+//     if (!this.subscribers[type]) {
+//       this.subscribers[type] = [];
+//     }
 
-    this.subscribers[type].push(fn);
-  },
+//     this.subscribers[type].push(fn);
+//   },
 
-  unsubscribe: function (type, fn) {
-    this.subscribers[type] = this.subscribers[type].filter(function (item) {
-      return item !== fn;
-    });
-  },
+//   unsubscribe: function (type, fn) {
+//     this.subscribers[type] = this.subscribers[type].filter(function (item) {
+//       return item !== fn;
+//     });
+//   },
 
-  publish: function (type, ...args) {
-    this.subscribers[type].forEach(function (item) {
-      item(...args);
-    });
-  },
-};
+//   publish: function (type, ...args) {
+//     this.subscribers[type].forEach(function (item) {
+//       item(...args);
+//     });
+//   },
+// };
 
-const tom = {
-  readNews: function (info) {
-    console.log(info);
-  },
-};
+// const tom = {
+//   readNews: function (info) {
+//     console.log(info);
+//   },
+// };
 
 function EventEmitter() {
   this._events = {};
@@ -39,29 +39,22 @@ EventEmitter.prototype.on = EventEmitter.prototype.addListener = function (
   listener,
   flag
 ) {
-  if (!this._events) {
-    this._events = Object.create(null);
-  }
+  if (!this._events) this._events = Object.create();
 
   if (this._events[type]) {
     if (flag) {
-      //从头部插入
       this._events[type].unshift(listener);
     } else {
       this._events[type].push(listener);
     }
   } else {
-    this._events[type] = [];
-  }
-
-  if (type !== "newListener") {
-    this.emit("newListener", type);
+    this._events[type] = [listener];
   }
 };
 
 EventEmitter.prototype.emit = function (type, ...args) {
   if (this._events[type]) {
-    this._events[type].forEach((item) => item.call(this, ...args));
+    this._events[type].forEach((fn) => fn.call(this, ...args));
   }
 };
 
@@ -74,6 +67,7 @@ EventEmitter.prototype.once = function (type, listener) {
   }
 
   only.origin = listener;
+
   this.on(type, only);
 };
 
