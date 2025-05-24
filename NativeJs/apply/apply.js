@@ -1,24 +1,24 @@
 Function.prototype.myApply = function(context, argsArray) {
-  if (typeof this === 'function') {
-    throw new TypeError('Caller must be a function')
+  if (typeof this !== 'function') {
+    throw new TypeError('myApply must be called on a function')
   }
 
   context = context || window
 
-  const fnSymbol = Symbol('fn')
+  const fnSymbol = new Symbol()
   context[fnSymbol] = this
+  
+  let res = null
 
-  let result
-
-  if (Array.isArray(argsArray)) {
-    result = context[fnSymbol](...argsArray)
-  } else if (argsArray === null) {
-    result = context[fnSymbol]()
+  if (argsArray === null) {
+    res = context[fnSymbol]()
+  } else if (!Array.isArray(argsArray) && typeof argsArray !== 'object') {
+      throw new TypeError('myApply expects second argument to be an array or array-like object');
   } else {
-    throw new TypeError('Second argument must be an array or null')
+    res = context[fnSymbol](...argsArray)
   }
-
+  
   delete context[fnSymbol]
 
-  return result
+  return res
 }

@@ -1,21 +1,24 @@
  Function.prototype.myBind = function(context, ...bindArgs) {
   if (typeof this !== 'function') {
-    throw new TypeError('Bind must be a called on a function')
+    throw new TypeError('myBind must be called on a function')
   }
-  var args = Array.prototype.slice.call(arguments, 1);
 
-  const self = this
+  const originalFn = this
 
-  function boundFunction() {
-    var bindArgs = Array.prototype.slice.call(arguments);
+  function boundFn(...callArgs) {
+    const isNew = this instanceof boundFn
 
-    return self.apply(
-      this instanceof boundFunction ? this : context,
-      args.concat(bindArgs)
+    const thisArg = isNew ? this : context
+
+    return originalFn.apply(
+      thisArg,
+      [...bindArgs, ...callArgs]
     )
   }
 
-  boundFunction.prototype = Object.create(self.prototype);
-  
-  return boundFunction
+  if (originalFn.prototype) {
+    boundFn.prototype = Object.create(originalFn.prototype)
+  }
+
+  return boundFn
 }

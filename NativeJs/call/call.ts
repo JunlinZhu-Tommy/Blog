@@ -2,17 +2,18 @@
 
 Function.prototype.myCall = function (context, ...args) {
   if (typeof this !== "function") {
-    throw new TypeError("Caller must be a function");
+    throw new TypeError("myCall must be called on a function");
   }
 
   context = context || window;
 
-  const fnSymbol = Symbol("fn");
+  const fnSymbol = Symbol();
+
   context[fnSymbol] = this;
 
-  const result = context[fnSymbol](...args);
+  const res = context[fnSymbol](...args);
 
   delete context[fnSymbol];
 
-  return result;
+  return res;
 };
